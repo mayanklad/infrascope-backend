@@ -1,6 +1,7 @@
 package com.infrascope.backend.service;
 
 import com.infrascope.backend.model.FileUploadResponse;
+import com.infrascope.backend.service.parser.AnsibleParser;
 import com.infrascope.backend.service.parser.TerraformParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,8 @@ public class FileService {
     private final Path uploadDir = Path.of("uploads");
     @Autowired
     private TerraformParser terraformParser;
+    @Autowired
+    private AnsibleParser ansibleParser;
 
     public FileService() throws IOException {
         if (!Files.exists(uploadDir)) {
@@ -40,8 +43,10 @@ public class FileService {
 //          Parse if .tf file
             if (sanitizedFilename.endsWith(".tf")) {
                 System.out.println(terraformParser.parse(targetPath.toFile()).toString());
+            } else if (sanitizedFilename.endsWith(".yml") || sanitizedFilename.endsWith(".yaml")) {
+                System.out.println(ansibleParser.parse(targetPath.toFile()).toString());
             } else {
-                System.out.println("No parser available for this file type");
+                System.out.println("No parser available for this file type.");
             }
 
         } catch (IOException e) {

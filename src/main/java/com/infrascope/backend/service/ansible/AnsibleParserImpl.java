@@ -1,8 +1,8 @@
-package com.infrascope.backend.service.parser;
+package com.infrascope.backend.service.ansible;
 
 import com.infrascope.backend.model.AnsiblePlay;
 import com.infrascope.backend.service.FileParser;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.yaml.snakeyaml.Yaml;
 
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Component
 public class AnsibleParserImpl implements FileParser<List<AnsiblePlay>> {
 
     @Override

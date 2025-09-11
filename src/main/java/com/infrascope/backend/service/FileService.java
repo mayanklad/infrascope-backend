@@ -2,6 +2,7 @@ package com.infrascope.backend.service;
 
 import com.infrascope.backend.model.FileUploadResponse;
 import com.infrascope.backend.service.parser.AnsibleParser;
+import com.infrascope.backend.service.parser.DockerComposeParser;
 import com.infrascope.backend.service.parser.TerraformParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,8 @@ public class FileService {
     private TerraformParser terraformParser;
     @Autowired
     private AnsibleParser ansibleParser;
+    @Autowired
+    private DockerComposeParser dockerComposeParser;
 
     public FileService() throws IOException {
         if (!Files.exists(uploadDir)) {
@@ -43,6 +46,8 @@ public class FileService {
 //          Parse if .tf file
             if (sanitizedFilename.endsWith(".tf")) {
                 System.out.println(terraformParser.parse(targetPath.toFile()).toString());
+            } else if (sanitizedFilename.endsWith("docker-compose.yml") || sanitizedFilename.endsWith("docker-compose.yaml")) {
+                System.out.println(dockerComposeParser.parse(targetPath.toFile()).toString());
             } else if (sanitizedFilename.endsWith(".yml") || sanitizedFilename.endsWith(".yaml")) {
                 System.out.println(ansibleParser.parse(targetPath.toFile()).toString());
             } else {

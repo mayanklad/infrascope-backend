@@ -4,6 +4,7 @@ import com.infrascope.backend.model.DockerCompose;
 import com.infrascope.backend.model.DockerNetwork;
 import com.infrascope.backend.model.DockerService;
 import com.infrascope.backend.model.DockerVolume;
+import com.infrascope.backend.service.FileParser;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.yaml.snakeyaml.Yaml;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class DockerComposeParser {
+public class DockerComposeParserImpl implements FileParser<DockerCompose> {
 
     public DockerCompose parse(MultipartFile file) {
         Yaml yaml = new Yaml();

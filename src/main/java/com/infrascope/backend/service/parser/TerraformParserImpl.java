@@ -2,6 +2,7 @@ package com.infrascope.backend.service.parser;
 
 import com.bertramlabs.plugins.hcl4j.HCLParser;
 import com.infrascope.backend.model.ResourceNode;
+import com.infrascope.backend.service.FileParser;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class TerraformParser {
+public class TerraformParserImpl implements FileParser<List<ResourceNode>> {
 
     /**
      * Parse a .tf file and extract resources

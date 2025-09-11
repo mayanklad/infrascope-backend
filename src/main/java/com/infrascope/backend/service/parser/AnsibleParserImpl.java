@@ -1,6 +1,7 @@
 package com.infrascope.backend.service.parser;
 
 import com.infrascope.backend.model.AnsiblePlay;
+import com.infrascope.backend.service.FileParser;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.yaml.snakeyaml.Yaml;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class AnsibleParser {
+public class AnsibleParserImpl implements FileParser<List<AnsiblePlay>> {
 
     public List<AnsiblePlay> parse(MultipartFile file) {
         Yaml parser = new Yaml();

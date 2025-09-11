@@ -2,7 +2,7 @@ package com.infrascope.backend.controller;
 
 import com.infrascope.backend.model.DockerCompose;
 import com.infrascope.backend.service.FileValidationService;
-import com.infrascope.backend.service.parser.DockerComposeParser;
+import com.infrascope.backend.service.parser.DockerComposeParserImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,12 +14,12 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/dockercompose")
-public class DockerComposeController {
+public class DockerComposeControllerImpl implements FileController<DockerCompose> {
 
     @Autowired
     private FileValidationService fileValidationService;
     @Autowired
-    private DockerComposeParser dockerComposeParser;
+    private DockerComposeParserImpl dockerComposeParser;
     private static final Set<String> ALLOWED_EXTENSIONS = Set.of("docker-compose.yml", "docker-compose.yaml");
 
     @PostMapping

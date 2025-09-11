@@ -1,8 +1,8 @@
 package com.infrascope.backend.controller;
 
-import com.infrascope.backend.model.AnsiblePlay;
+import com.infrascope.backend.model.ResourceNode;
 import com.infrascope.backend.service.FileValidationService;
-import com.infrascope.backend.service.parser.AnsibleParser;
+import com.infrascope.backend.service.parser.TerraformParserImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,19 +14,19 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/ansible")
-public class AnsibleController {
+@RequestMapping("/terraform")
+public class TerraformControllerImpl implements FileController<List<ResourceNode>> {
 
     @Autowired
     private FileValidationService fileValidationService;
     @Autowired
-    private AnsibleParser ansibleParser;
-    private static final Set<String> ALLOWED_EXTENSIONS = Set.of("yml", "yaml");
+    private TerraformParserImpl terraformParser;
+    private static final Set<String> ALLOWED_EXTENSIONS = Set.of("tf");
 
     @PostMapping
-    public List<AnsiblePlay> process(@RequestParam("file") MultipartFile file) {
+    public List<ResourceNode> process(@RequestParam("file") MultipartFile file) {
         fileValidationService.validateFile(file, ALLOWED_EXTENSIONS);
 
-        return ansibleParser.parse(file);
+        return terraformParser.parse(file);
     }
 }

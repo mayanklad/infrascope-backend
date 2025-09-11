@@ -1,9 +1,9 @@
 package com.infrascope.backend.controller;
 
+import com.infrascope.backend.model.DockerCompose;
 import com.infrascope.backend.service.FileValidationService;
 import com.infrascope.backend.service.parser.DockerComposeParser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,8 +23,9 @@ public class DockerComposeController {
     private static final Set<String> ALLOWED_EXTENSIONS = Set.of("docker-compose.yml", "docker-compose.yaml");
 
     @PostMapping
-    public ResponseEntity<String> process(@RequestParam("file") MultipartFile file) {
-        return fileValidationService.validateFile(file, ALLOWED_EXTENSIONS)
-                .orElseGet(() -> ResponseEntity.ok(dockerComposeParser.parse(file).toString()));
+    public DockerCompose process(@RequestParam("file") MultipartFile file) {
+        fileValidationService.validateFile(file, ALLOWED_EXTENSIONS);
+        
+        return dockerComposeParser.parse(file);
     }
 }

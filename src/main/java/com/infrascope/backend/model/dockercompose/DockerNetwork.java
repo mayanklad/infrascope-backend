@@ -1,4 +1,4 @@
-package com.infrascope.backend.model;
+package com.infrascope.backend.model.dockercompose;
 
 public record DockerNetwork(
         String driver

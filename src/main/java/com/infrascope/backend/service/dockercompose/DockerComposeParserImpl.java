@@ -1,11 +1,11 @@
-package com.infrascope.backend.service.parser;
+package com.infrascope.backend.service.dockercompose;
 
-import com.infrascope.backend.model.DockerCompose;
-import com.infrascope.backend.model.DockerNetwork;
-import com.infrascope.backend.model.DockerService;
-import com.infrascope.backend.model.DockerVolume;
+import com.infrascope.backend.model.dockercompose.DockerCompose;
+import com.infrascope.backend.model.dockercompose.DockerNetwork;
+import com.infrascope.backend.model.dockercompose.DockerService;
+import com.infrascope.backend.model.dockercompose.DockerVolume;
 import com.infrascope.backend.service.FileParser;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.yaml.snakeyaml.Yaml;
 
@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Component
 public class DockerComposeParserImpl implements FileParser<DockerCompose> {
 
     @Override

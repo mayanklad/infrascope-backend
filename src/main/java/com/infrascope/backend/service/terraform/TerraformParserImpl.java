@@ -1,21 +1,22 @@
-package com.infrascope.backend.service.parser;
+package com.infrascope.backend.service.terraform;
 
 import com.bertramlabs.plugins.hcl4j.HCLParser;
 import com.infrascope.backend.model.ResourceNode;
 import com.infrascope.backend.service.FileParser;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Component
 public class TerraformParserImpl implements FileParser<List<ResourceNode>> {
 
     /**
      * Parse a .tf file and extract resources
      */
+    @Override
     public List<ResourceNode> parse(MultipartFile file) {
         List<ResourceNode> resources = new ArrayList<>();
 

@@ -1,8 +1,9 @@
 package com.infrascope.backend.controller;
 
+import com.infrascope.backend.model.graph.Graph;
 import org.springframework.web.multipart.MultipartFile;
 
-public interface FileController<T> {
+public interface FileController {
 
-    T process(MultipartFile file);
+    Graph process(MultipartFile file);
 }

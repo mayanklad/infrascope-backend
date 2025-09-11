@@ -3,8 +3,8 @@ package com.infrascope.backend.service.parser;
 import com.bertramlabs.plugins.hcl4j.HCLParser;
 import com.infrascope.backend.model.ResourceNode;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -15,13 +15,13 @@ public class TerraformParser {
     /**
      * Parse a .tf file and extract resources
      */
-    public List<ResourceNode> parse(File tfFile) {
+    public List<ResourceNode> parse(MultipartFile file) {
         List<ResourceNode> resources = new ArrayList<>();
 
         try {
             // Parse HCL
             HCLParser parser = new HCLParser();
-            Map<String, Object> tfMap = parser.parse(tfFile);
+            Map<String, Object> tfMap = parser.parse(file.getInputStream());
 
             // Terraform "resource" block
             if (tfMap.containsKey("resource")) {
@@ -46,7 +46,7 @@ public class TerraformParser {
                 }
             }
         } catch (Exception e) {
-            throw new RuntimeException("Failed to parse Terraform file: " + tfFile.getName(), e);
+            throw new RuntimeException("Failed to parse Terraform file: " + file.getName(), e);
         }
 
         return resources;

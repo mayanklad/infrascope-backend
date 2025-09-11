@@ -2,11 +2,9 @@ package com.infrascope.backend.service.parser;
 
 import com.infrascope.backend.model.AnsiblePlay;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.yaml.snakeyaml.Yaml;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -14,9 +12,16 @@ import java.util.Map;
 @Service
 public class AnsibleParser {
 
-    public List<AnsiblePlay> parse(File file) throws FileNotFoundException {
+    public List<AnsiblePlay> parse(MultipartFile file) {
         Yaml parser = new Yaml();
-        List<Object> playMapList = parser.load(new FileReader(file));
+        List<Object> playMapList = null;
+
+        try {
+            playMapList = parser.load(file.getInputStream());
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to parse Terraform file: " + file.getName(), e);
+        }
+
         List<AnsiblePlay> plays = new ArrayList<>();
 
         for (Object block : playMapList) {

@@ -5,11 +5,9 @@ import com.infrascope.backend.model.DockerNetwork;
 import com.infrascope.backend.model.DockerService;
 import com.infrascope.backend.model.DockerVolume;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.yaml.snakeyaml.Yaml;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,9 +15,14 @@ import java.util.Map;
 @Service
 public class DockerComposeParser {
 
-    public DockerCompose parse(File file) throws FileNotFoundException {
+    public DockerCompose parse(MultipartFile file) {
         Yaml yaml = new Yaml();
-        Map<String, Object> data = yaml.load(new FileReader(file));
+        Map<String, Object> data = null;
+        try {
+            data = yaml.load(file.getInputStream());
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to parse Terraform file: " + file.getName(), e);
+        }
 
 //      Parse services
         Map<String, DockerService> serviceModels = new HashMap<>();

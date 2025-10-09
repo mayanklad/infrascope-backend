@@ -34,7 +34,7 @@ public class AnsibleToGraphConverterImpl implements FileToGraphConverter<List<An
                     GraphNode taskNode = new GraphNode();
 
                     taskNode.setId(task.get("name").toString());
-                    taskNode.setType("ansible_play");
+                    taskNode.setType("ansible_task");
                     taskNode.setLabel(task.get("name").toString());
                     taskNode.addMetaData("module", task.get("module"));
 

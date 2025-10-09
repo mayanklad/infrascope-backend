@@ -35,7 +35,7 @@ public class DockerComposeToGraphConverterImpl implements FileToGraphConverter<D
                         List<String> deps = dockerService.dependsOn();
                         if (deps != null) {
                             for (String dep : deps) {
-                                graph.addEdge(new GraphEdge(dep, serviceName, "depends_on"));
+                                graph.addEdge(new GraphEdge(serviceName, dep, "depends_on"));
                             }
                         }
             });
